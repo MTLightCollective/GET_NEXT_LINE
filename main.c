@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:05:51 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/14 12:44:13 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/18 18:23:06 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+int	newline_finder(char *s);
 char *get_next_line(int fd);
 
 int main(void)
@@ -36,7 +37,6 @@ int main(void)
 		if (next_line == NULL)
 			break;
 		count++;
-		printf("[%d]:%s\n", count, next_line);
 		free(next_line);
 		next_line = NULL;
 	}
