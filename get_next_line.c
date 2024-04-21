@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:33:52 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/18 18:23:04 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/21 18:50:03 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
+
 void *ft_calloc(size_t count, size_t size);
 int ft_line_sizer(char *buffer);
-//char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
-
-/*void	print_newline_helper(char *buffer)
-{
-	while (*buffer && *buffer != '\0')
-	{
-		if(*buffer == '\n')
-		{
-			*buffer = '\\';
-		}
-		printf("%c", *buffer);
-		buffer++;
-	}
-}*/
+char	*ft_strjoin(const char *s1, char const *s2);
 
 int	newline_finder(char *s)
 {
@@ -51,9 +38,7 @@ static char	*read_file(int fd)
 {	
 	int	bytes_read;
 	char	*buffer;
-	int count;
 
-	count = 1;	
 	buffer = ft_calloc (BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
@@ -94,9 +79,9 @@ char	*get_next_line(int fd)
 	}
 	i = 0;
 	j = 0;
-	printf("le buffer est: \n%s\n", buffer);
-	printf("la stash est: \n%s\n", stash);
-	printf("le i est: \n%d\n", i);
+	printf("le buffer est: %s\n", buffer);
+	printf("la stash est: %s\n", stash);
+	printf("le i est: %d\n", i);
 	printf("la line est: %s\n", line);
-	return(line);
+	return(buffer);
 }

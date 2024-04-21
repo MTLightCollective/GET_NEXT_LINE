@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:21:35 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/19 11:44:27 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/21 18:45:42 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,21 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	i = 0;
 	j = 0;
 	if (s1 == NULL)
-		total_len = ft_strlen(s2) + 1;
-	else
-		total_len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	{	
+		answer = malloc(sizeof(char) * (ft_strlen(s2) + 1));
+		while (s2[i] != '\0')
+		{
+			answer[i] = s2[i];
+			i++;
+		}
+		answer[i] = '\0';
+		return (answer);
+	}
+	total_len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	answer = malloc(sizeof(char) * total_len);
 	if (!answer)
 		return (NULL);
-	while (s1 != NULL && s1[i] != '\0')
+	while (s1[i] != '\0')
 	{
 		answer[i] = s1[i];
 		i++;

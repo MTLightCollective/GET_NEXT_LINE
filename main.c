@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:05:51 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/18 18:23:06 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/21 17:35:36 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int main(void)
 		if (next_line == NULL)
 			break;
 		count++;
+		printf("count is %d\n", count);
 		free(next_line);
 		next_line = NULL;
 	}
