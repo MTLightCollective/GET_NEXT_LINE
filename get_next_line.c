@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:33:52 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/22 18:32:11 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/24 16:51:27 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 void *ft_calloc(size_t count, size_t size);
 int ft_line_sizer(char *buffer);
 char	*ft_strjoin(const char *s1, char const *s2);
+int	ft_strlen(const char *str);
 
 int	newline_finder(char *s)
 {
@@ -51,6 +52,36 @@ static char	*read_file(int fd)
 	return (buffer);
 }
 
+char	*stash_cleaner(char *stash)
+{
+	int	i;
+	int	j;
+	char	*clean_stash;
+	
+	i = 0;
+	j = 0;
+	if (newline_finder(stash) == 1)
+	{
+		while(stash[i] != '\n')
+		{
+			i++;
+		}
+		i++;
+		clean_stash = malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
+		while(stash[i] != '\0')
+		{
+			clean_stash[j] = stash[i];
+			j++;
+			i++;
+		}
+		clean_stash[j] = '\0';
+		free (stash);
+		return (clean_stash);
+	}
+	else
+		return (stash);
+}	
+
 char	*get_next_line(int fd)
 {
 	char		*buffer;
@@ -61,34 +92,62 @@ char	*get_next_line(int fd)
 
 	i = 0;
 	j = 0;
-	buffer = read_file(fd);
-	stash = ft_strjoin(stash, buffer);
 	line = NULL;
-	if (newline_finder(stash) == 1)
-	{
-		while (stash[i] != '\n')
-		{
-			i++;
-		}
-		line = malloc((i + 1) * sizeof(char));
-		while (j < i)
-		{
-			line[j] = stash[j];
-			j++;
-		}
-		line[j] = '\0';
-		printf("le buffer est: %s\n", buffer);
-		printf("la stash est: %s\n", stash);
-		printf("le i est: %d\n", i);
-		printf("la line est: %s\n", line);
-		free(stash);
-		return(line);
+	if(BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
+	{	
+//		free(stash);
+//		stash = NULL;
+		return (NULL);
 	}
-	i = 0;
-	j = 0;
-	printf("le buffer est: %s\n", buffer);
-	printf("la stash est: %s\n", stash);
-	printf("le i est: %d\n", i);
-	printf("la line est: %s\n", line);
+	else
+	{
+		while (line == NULL)
+		{
+			buffer = read_file(fd);
+			if (!buffer)
+			{
+				if (stash == NULL || *stash == '\0')
+					return (NULL);
+			}
+			stash = ft_strjoin(stash, buffer);
+			if (newline_finder(stash) == 1)
+			{
+				while (stash[i] != '\n')
+				{
+				i++;
+				}
+				line = malloc((i + 1) * sizeof(char));
+				while (j < i)
+				{
+					line[j] = stash[j];
+					j++;
+				}
+				line[j] = '\0';
+				stash = stash_cleaner(stash);
+			}
+		}
+	}
 	return(line);
+}
+
+int	main(void)
+{
+	int	fd;
+	char	*str;
+
+	fd = open("test.txt", O_RDONLY);
+	str = get_next_line(fd);
+	
+	while (str != NULL)
+	{
+		printf("line found : %s\n", str);
+		free(str);
+		str = get_next_line(fd);
+	}
+//	if (str == NULL)
+//	{
+		printf("its NULL : %s\n", str);
+		free(str);
+//	}
+	close(fd);
 }

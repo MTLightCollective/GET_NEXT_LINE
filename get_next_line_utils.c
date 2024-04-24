@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:21:35 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/21 18:45:42 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/24 16:41:04 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 int	ft_strlen(const char *str)
 {
+	if(str == NULL)
+		return (0);
 	int	i;
 
 	i = 0;
@@ -22,24 +24,6 @@ int	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
-
-/*char	*ft_strdup(const char *s1)
-{
-	char	*newptr;
-	int		i;
-
-	i = 0;
-	newptr = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (newptr == NULL)
-		return (NULL);
-	while (s1[i])
-	{
-		newptr[i] = s1[i];
-		i++;
-	}
-	newptr[i] = '\0';
-	return (newptr);
-}*/
 
 char	*ft_strjoin(const char *s1, const char *s2)
 {
@@ -50,6 +34,20 @@ char	*ft_strjoin(const char *s1, const char *s2)
 
 	i = 0;
 	j = 0;
+	if (s1 == NULL && s2 == NULL)
+		return NULL;
+	if (s2 == NULL)
+	{
+		total_len = ft_strlen(s1) + 1;
+		answer = malloc(sizeof(char) * total_len);
+		while (s1[i] != '\0')
+		{
+			answer[i] = s1[i];
+			i++;
+		}
+		answer[i] = '\0';
+		return (answer);
+	}
 	if (s1 == NULL)
 	{	
 		answer = malloc(sizeof(char) * (ft_strlen(s2) + 1));
@@ -99,26 +97,3 @@ void	*ft_calloc(size_t count, size_t size)
 	}
 	return (string);
 }
-
-/*int ft_linejump_finder(char *buffer)
-{
-	int i;
-	
-	i = 0;
-	while(buffer[i] != '\n')
-		i++;
-	if (i <= BUFFER_SIZE)
-	return (i);
-}*/
-//find the size of the file
-//make sure you can handle any number of new lines
-//make sure the buffer size doesnt affect the behaviour
-//make sure any type of buffer works
-//dynamically malloc the basin
-	//calculate the size untill the \n
-	//influence the count
-//return the first newline
-
-//exctract one line even tho the buffer is bigger than it
-
-//skip read until all newlines are extracted
