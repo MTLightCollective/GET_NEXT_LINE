@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 12:05:51 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/21 17:35:36 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/22 18:28:25 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,11 @@ int main(void)
 		printf("error openning file");
 		return (1);
 	}
-	while(1)
+	while(next_line == NULL)
 	{
 		next_line = get_next_line(fd);
-		if (next_line == NULL)
-			break;
 		count++;
-		printf("count is %d\n", count);
-		free(next_line);
-		next_line = NULL;
+		printf("next_line est %s\n", next_line);
 	}
 	close(fd);
 	return (0);

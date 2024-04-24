@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:33:52 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/21 18:50:03 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/22 18:32:11 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,26 @@ char	*get_next_line(int fd)
 	j = 0;
 	buffer = read_file(fd);
 	stash = ft_strjoin(stash, buffer);
-	while (stash[i] != '\n' && stash[i] != '\0')
-	{
-		i++;
-	}
+	line = NULL;
 	if (newline_finder(stash) == 1)
 	{
+		while (stash[i] != '\n')
+		{
+			i++;
+		}
 		line = malloc((i + 1) * sizeof(char));
-		while (j <= i && stash != NULL)
+		while (j < i)
 		{
 			line[j] = stash[j];
 			j++;
 		}
 		line[j] = '\0';
+		printf("le buffer est: %s\n", buffer);
+		printf("la stash est: %s\n", stash);
+		printf("le i est: %d\n", i);
+		printf("la line est: %s\n", line);
+		free(stash);
+		return(line);
 	}
 	i = 0;
 	j = 0;
@@ -83,5 +90,5 @@ char	*get_next_line(int fd)
 	printf("la stash est: %s\n", stash);
 	printf("le i est: %d\n", i);
 	printf("la line est: %s\n", line);
-	return(buffer);
+	return(line);
 }
