@@ -6,21 +6,20 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:21:35 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/24 16:41:04 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/25 19:20:56 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdlib.h>
+#include "get_next_line.h"
 
 int	ft_strlen(const char *str)
 {
-	if(str == NULL)
-		return (0);
 	int	i;
 
 	i = 0;
-	while(str[i])
+	if (str == NULL)
+		return (0);
+	while (str[i])
 		i++;
 	return (i);
 }
@@ -35,7 +34,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	i = 0;
 	j = 0;
 	if (s1 == NULL && s2 == NULL)
-		return NULL;
+		return (NULL);
 	if (s2 == NULL)
 	{
 		total_len = ft_strlen(s1) + 1;
@@ -49,7 +48,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		return (answer);
 	}
 	if (s1 == NULL)
-	{	
+	{
 		answer = malloc(sizeof(char) * (ft_strlen(s2) + 1));
 		while (s2[i] != '\0')
 		{
@@ -79,17 +78,17 @@ char	*ft_strjoin(const char *s1, const char *s2)
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void		*string;
+	void			*string;
 	unsigned char	*bytestring;
-	size_t		i;
-	size_t		totalsize;
+	size_t			i;
+	size_t			totalsize;
 
 	i = 0;
 	totalsize = size * count;
 	string = (void *)malloc(totalsize);
 	if (!string)
 		return (0);
-	bytestring = (unsigned char*)string;
+	bytestring = (unsigned char *)string;
 	while (i < totalsize)
 	{
 		bytestring[i] = '\0';

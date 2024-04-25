@@ -6,24 +6,15 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:33:52 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/24 16:51:27 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/25 19:25:21 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "get_next_line.h"
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-void *ft_calloc(size_t count, size_t size);
-int ft_line_sizer(char *buffer);
-char	*ft_strjoin(const char *s1, char const *s2);
-int	ft_strlen(const char *str);
+#include "get_next_line.h"
 
 int	newline_finder(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i] != '\0')
@@ -35,9 +26,9 @@ int	newline_finder(char *s)
 	return (0);
 }
 
-static char	*read_file(int fd)
-{	
-	int	bytes_read;
+char	*read_file(int fd)
+{
+	int		bytes_read;
 	char	*buffer;
 
 	buffer = ft_calloc (BUFFER_SIZE + 1, sizeof(char));
@@ -54,21 +45,21 @@ static char	*read_file(int fd)
 
 char	*stash_cleaner(char *stash)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*clean_stash;
-	
+
 	i = 0;
 	j = 0;
 	if (newline_finder(stash) == 1)
 	{
-		while(stash[i] != '\n')
+		while (stash[i] != '\n')
 		{
 			i++;
 		}
 		i++;
 		clean_stash = malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
-		while(stash[i] != '\0')
+		while (stash[i] != '\0')
 		{
 			clean_stash[j] = stash[i];
 			j++;
@@ -80,23 +71,23 @@ char	*stash_cleaner(char *stash)
 	}
 	else
 		return (stash);
-}	
+}
 
 char	*get_next_line(int fd)
 {
 	char		*buffer;
 	char		*line;
 	static char	*stash;
-	int i;
-	int j;
+	int			i;
+	int			j;
 
 	i = 0;
 	j = 0;
 	line = NULL;
-	if(BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
-	{	
-//		free(stash);
-//		stash = NULL;
+	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
+	{
+		free(stash);
+		stash = NULL;
 		return (NULL);
 	}
 	else
@@ -114,7 +105,7 @@ char	*get_next_line(int fd)
 			{
 				while (stash[i] != '\n')
 				{
-				i++;
+					i++;
 				}
 				line = malloc((i + 1) * sizeof(char));
 				while (j < i)
@@ -127,7 +118,7 @@ char	*get_next_line(int fd)
 			}
 		}
 	}
-	return(line);
+	return (line);
 }
 
 int	main(void)
