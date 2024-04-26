@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:33:52 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/25 19:25:21 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/25 20:51:19 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ char	*get_next_line(int fd)
 			buffer = read_file(fd);
 			if (!buffer)
 			{
+				free (buffer);
 				if (stash == NULL || *stash == '\0')
 					return (NULL);
 			}
@@ -135,10 +136,10 @@ int	main(void)
 		free(str);
 		str = get_next_line(fd);
 	}
-//	if (str == NULL)
-//	{
+if (str == NULL)
+	{
 		printf("its NULL : %s\n", str);
 		free(str);
-//	}
+	}
 	close(fd);
 }

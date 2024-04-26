@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:21:35 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/25 19:20:56 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/25 20:49:51 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*answer;
 	size_t	total_len;
@@ -44,6 +44,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 			answer[i] = s1[i];
 			i++;
 		}
+		free (s1);
 		answer[i] = '\0';
 		return (answer);
 	}
@@ -55,13 +56,17 @@ char	*ft_strjoin(const char *s1, const char *s2)
 			answer[i] = s2[i];
 			i++;
 		}
+		free (s2);
 		answer[i] = '\0';
 		return (answer);
 	}
 	total_len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	answer = malloc(sizeof(char) * total_len);
 	if (!answer)
+	{
+		free (answer);
 		return (NULL);
+	}
 	while (s1[i] != '\0')
 	{
 		answer[i] = s1[i];
@@ -72,6 +77,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		answer[i + j] = s2[j];
 		j++;
 	}
+	free (s1);
+	free (s2);
 	answer[i + j] = '\0';
 	return (answer);
 }
@@ -94,5 +101,6 @@ void	*ft_calloc(size_t count, size_t size)
 		bytestring[i] = '\0';
 		i++;
 	}
+	//free (bytestring);
 	return (string);
 }
