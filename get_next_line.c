@@ -6,25 +6,11 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:33:52 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/25 20:51:19 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/27 17:26:50 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-int	newline_finder(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == '\n')
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 char	*read_file(int fd)
 {
@@ -57,13 +43,10 @@ char	*stash_cleaner(char *stash)
 		{
 			i++;
 		}
-		i++;
 		clean_stash = malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
-		while (stash[i] != '\0')
+		while (stash[++i] != '\0')
 		{
-			clean_stash[j] = stash[i];
-			j++;
-			i++;
+			clean_stash[j++] = stash[i];
 		}
 		clean_stash[j] = '\0';
 		free (stash);

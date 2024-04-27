@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 11:58:30 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/25 20:42:02 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/27 16:38:11 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <stddef.h>
 
 int			ft_strlen(const char *str);
+size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char		*ft_strjoin(char *s1, char *s2);
 void		*ft_calloc(size_t count, size_t size);
 int			newline_finder(char *s);

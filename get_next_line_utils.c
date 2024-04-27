@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:21:35 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/25 20:49:51 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/04/27 17:02:12 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,63 +24,65 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+int	newline_finder(char *s)
 {
-	char	*answer;
-	size_t	total_len;
-	int		i;
-	int		j;
+	int	i;
 
 	i = 0;
-	j = 0;
-	if (s1 == NULL && s2 == NULL)
-		return (NULL);
-	if (s2 == NULL)
+	while (s[i] != '\0')
 	{
-		total_len = ft_strlen(s1) + 1;
-		answer = malloc(sizeof(char) * total_len);
-		while (s1[i] != '\0')
-		{
-			answer[i] = s1[i];
-			i++;
-		}
-		free (s1);
-		answer[i] = '\0';
-		return (answer);
-	}
-	if (s1 == NULL)
-	{
-		answer = malloc(sizeof(char) * (ft_strlen(s2) + 1));
-		while (s2[i] != '\0')
-		{
-			answer[i] = s2[i];
-			i++;
-		}
-		free (s2);
-		answer[i] = '\0';
-		return (answer);
-	}
-	total_len = ft_strlen(s1) + ft_strlen(s2) + 1;
-	answer = malloc(sizeof(char) * total_len);
-	if (!answer)
-	{
-		free (answer);
-		return (NULL);
-	}
-	while (s1[i] != '\0')
-	{
-		answer[i] = s1[i];
+		if (s[i] == '\n')
+			return (1);
 		i++;
 	}
-	while (s2[j] != '\0')
+	return (0);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	len;
+	size_t	len2;
+
+	len = 0;
+	len2 = 0;
+	while (src[len] != '\0')
+		len++;
+	if (dstsize == 0)
+		return (len);
+	while (src[len2] != '\0' && (len2 < (dstsize - 1)))
 	{
-		answer[i + j] = s2[j];
-		j++;
+		dst[len2] = src[len2];
+		len2++;
 	}
-	free (s1);
-	free (s2);
-	answer[i + j] = '\0';
-	return (answer);
+	if (dstsize != 0)
+		dst[len2] = '\0';
+	return (len);
+}
+
+char *ft_strjoin(char *s1, char *s2)
+{
+	char *result;
+	size_t len1;
+	size_t len2;
+	
+	len1 = 0;
+	len2 = 0;
+	if (s1)
+		len1 = ft_strlen(s1);
+	if (s2)
+		len2 = ft_strlen(s2);
+	result = malloc(len1 + len2 + 1);
+	if (result == NULL)
+		return NULL;
+	if (s1)
+		ft_strlcpy(result, s1, len1 + 1);
+	else
+		result[0] = '\0';
+	if (s2)
+		ft_strlcpy(result + len1, s2, len2 + 1);
+	free(s1);
+	free(s2);
+	return (result);
 }
 
 void	*ft_calloc(size_t count, size_t size)
