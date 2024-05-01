@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 11:58:30 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/27 16:38:11 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/05/01 12:42:18 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ char		*ft_strjoin(char *s1, char *s2);
 void		*ft_calloc(size_t count, size_t size);
 int			newline_finder(char *s);
 char		*read_file(int fd);
-char		*stash_cleaner(char *stash);
+/*static char		*stash_cleaner(char *stash);*/
+char		*if_newline(char *stash, char *line);
 char		*get_next_line(int fd);
 
 #endif /* GET_NEXT_LINE_H */
