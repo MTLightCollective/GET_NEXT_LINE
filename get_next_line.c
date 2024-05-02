@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:33:52 by mamauss           #+#    #+#             */
-/*   Updated: 2024/05/01 12:45:13 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/05/02 10:03:41 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,14 @@ char	*if_newline(char *stash, char *line)
 		{
 			i++;
 		}
-		line = malloc((i + 1) * sizeof(char));
+		line = malloc((i + 2) * sizeof(char));
 		while (j < i)
 		{
 			line[j] = stash[j];
 			j++;
 		}
-		line[j] = '\0';
+		line[j] = '\n';
+		line[j + 1] = '\0';
 		return (line);
 	}
 	return (NULL);
