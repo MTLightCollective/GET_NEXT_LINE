@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:33:52 by mamauss           #+#    #+#             */
-/*   Updated: 2024/05/02 10:03:41 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/05/02 16:17:52 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,26 @@ char	*if_newline(char *stash, char *line)
 	return (NULL);
 }
 
+char	*if_endfile(char *stash, char *line, int fd)
+{
+	int i;
+	char buf;
+
+	i = 0;
+	if(newline_finder(stash) == 0 && read(fd, &buf, 1) <= 0)
+	{
+		line = malloc((ft_strlen(stash) + 1) * sizeof(char));
+		while(stash[i] != '\0')
+		{
+			line[i] = stash[i];
+			i++;
+		}
+		line[i] = '\0';
+		return (line);
+	}
+	return (NULL);		
+}
+
 char	*get_next_line(int fd)
 {
 	char		*buffer;
@@ -105,6 +125,7 @@ char	*get_next_line(int fd)
 		}
 		stash = ft_strjoin(stash, buffer);	
 		line = if_newline(stash, line);
+		line = if_endfile(stash, line, fd);
 		stash = stash_cleaner(stash);
 	}
 	return (line);

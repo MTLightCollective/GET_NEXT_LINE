@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:21:35 by mamauss           #+#    #+#             */
-/*   Updated: 2024/04/27 17:02:12 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/05/02 15:04:37 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,5 @@ void	*ft_calloc(size_t count, size_t size)
 		bytestring[i] = '\0';
 		i++;
 	}
-	//free (bytestring);
 	return (string);
 }
