@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 18:33:52 by mamauss           #+#    #+#             */
-/*   Updated: 2024/05/02 16:17:52 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/05/03 19:02:38 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ char	*read_file(int fd)
 
 static char	*stash_cleaner(char *stash)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 	static char	*clean_stash;
 
 	i = 0;
@@ -49,17 +49,16 @@ static char	*stash_cleaner(char *stash)
 			clean_stash[j++] = stash[i];
 		}
 		clean_stash[j] = '\0';
-		free (stash);
+//		free (stash);
 		return (clean_stash);
 	}
-	else
-		return (stash);
+	return (stash);
 }
 
 char	*if_newline(char *stash, char *line)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -82,24 +81,20 @@ char	*if_newline(char *stash, char *line)
 	return (NULL);
 }
 
-char	*if_endfile(char *stash, char *line, int fd)
+char	*if_endfile(char *stash)
 {
-	int i;
-	char buf;
+	int		i;
+	char	*line;
 
 	i = 0;
-	if(newline_finder(stash) == 0 && read(fd, &buf, 1) <= 0)
+	line = malloc((ft_strlen(stash) + 1) * sizeof(char));
+	while (stash[i] != '\0')
 	{
-		line = malloc((ft_strlen(stash) + 1) * sizeof(char));
-		while(stash[i] != '\0')
-		{
-			line[i] = stash[i];
-			i++;
-		}
-		line[i] = '\0';
-		return (line);
+		line[i] = stash[i];
+		i++;
 	}
-	return (NULL);		
+	line[i] = '\0';
+	return (line);
 }
 
 char	*get_next_line(int fd)
@@ -107,7 +102,7 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	char		*line;
 	static char	*stash;
-	
+
 	line = NULL;
 	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0)
 	{
@@ -118,15 +113,22 @@ char	*get_next_line(int fd)
 	while (line == NULL)
 	{
 		buffer = read_file(fd);
-		if (!buffer && (stash == NULL || *stash == '\0'))
+		if (!buffer)
 		{
-				free (buffer);
-				return (NULL);
+			if (stash == NULL || *stash == '\0')
+				return (free(stash), NULL);
+			if (stash != NULL && *stash != '\0')
+			{
+				line = if_endfile(stash);
+				return(free(stash), line);
+			}
 		}
-		stash = ft_strjoin(stash, buffer);	
+		stash = ft_strjoin(stash, buffer);
 		line = if_newline(stash, line);
-		line = if_endfile(stash, line, fd);
 		stash = stash_cleaner(stash);
 	}
+	/*printf("le buffer est %p\n", buffer);
+	printf("le stash est %p\n", stash);
+	printf("le line est %p\n", line);*/
 	return (line);
 }

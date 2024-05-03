@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:21:35 by mamauss           #+#    #+#             */
-/*   Updated: 2024/05/02 15:04:37 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/05/03 19:15:27 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (len);
 }
 
-char *ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	char *result;
-	size_t len1;
-	size_t len2;
-	
+	char	*result;
+	size_t	len1;
+	size_t	len2;
+
 	len1 = 0;
 	len2 = 0;
 	if (s1)
@@ -73,16 +73,14 @@ char *ft_strjoin(char *s1, char *s2)
 		len2 = ft_strlen(s2);
 	result = malloc(len1 + len2 + 1);
 	if (result == NULL)
-		return NULL;
+		return (NULL);
 	if (s1)
 		ft_strlcpy(result, s1, len1 + 1);
 	else
 		result[0] = '\0';
 	if (s2)
 		ft_strlcpy(result + len1, s2, len2 + 1);
-	free(s1);
-	free(s2);
-	return (result);
+	return (free(s1), free(s2), result);
 }
 
 void	*ft_calloc(size_t count, size_t size)
