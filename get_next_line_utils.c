@@ -6,7 +6,7 @@
 /*   By: mamauss <mamauss@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 19:21:35 by mamauss           #+#    #+#             */
-/*   Updated: 2024/05/03 19:15:27 by mamauss          ###   ########.fr       */
+/*   Updated: 2024/05/04 13:41:43 by mamauss          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		len2 = ft_strlen(s2);
 	result = malloc(len1 + len2 + 1);
 	if (result == NULL)
-		return (NULL);
+		return (free(s1), free(s2), NULL);
 	if (s1)
 		ft_strlcpy(result, s1, len1 + 1);
 	else
